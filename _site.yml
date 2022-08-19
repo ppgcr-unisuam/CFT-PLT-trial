@@ -24,4 +24,5 @@ output:
     theme: "cerulean"
     highlight: "textmate"
     toc: false
+    code_folding: "hide"
 ---

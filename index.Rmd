@@ -22,7 +22,7 @@ div.main-container {
 
 <br>
 
-<iframe src="https://clinicaltrials.gov/ct2/show/NCT05480982?term=UNISUAM+OR+%22Centro+Universitário+Augusto+Motta%22&draw=2&rank=6" style="width:100%; height:600px; border:0;"></iframe>
+<iframe src="https://clinicaltrials.gov/ct2/show/NCT05480982" style="width:100%; height:600px;"></iframe>
 
 <br>
 
@@ -34,7 +34,9 @@ div.main-container {
 
 <br>
 
-```{r rand-alloc, echo = TRUE, include = TRUE, comment = NA}
+#### *Generate list*
+
+```{r rand-alloc, echo = TRUE, include = TRUE, comment = NA, warning = FALSE, message = FALSE, fig.align = 'center', out.width = "100%"}
 # load packages
 library("blockrand", character.only = TRUE)
 library("png", character.only = TRUE)
@@ -69,7 +71,11 @@ lista <- as.data.frame(lista)
 write_xlsx(lista, "lista_alocacao.xlsx")
 ```
 
-```{r rand-alloc-hide, echo = FALSE, include = FALSE, comment = NA}
+<br>
+
+#### *Generate folders*
+
+```{r rand-alloc-hide, echo = TRUE, include = TRUE, comment = NA, warning = FALSE, message = FALSE, fig.align = 'center', out.width = "100%"}
 # cria as pastas numeradas de acordo com o N
 for (i in 1:dim(lista)[1]) {
   dir.name <- formatC(lista$id[i], width = 3, flag = "0")
@@ -78,7 +84,7 @@ for (i in 1:dim(lista)[1]) {
   par(mai = c(0.1, 0.1, 0.1, 0.1))
   par(oma = c(1, 1, 1, 1))
   par(pty = "s")
-  par(width = 5, height = 5, unit = "in")
+  par(width = 4, height = 4, unit = "in")
   png(file = file.path("ids", dir.name, paste0(dir.name, ".png")), bg = "transparent")
   plot(
     NULL,
@@ -105,7 +111,7 @@ for (i in 1:dim(lista)[1]) {
 
 <br>
 
-```{r rand-alloc-show, comment = NA, include = TRUE, echo = FALSE, warning = FALSE, message = FALSE, fig.align = 'center', out.width = "100%", results = "asis"}
+```{r rand-alloc-show, , echo = FALSE, include = TRUE, comment = NA, warning = FALSE, message = FALSE, fig.align = 'center', out.width = "100%", results = "asis"}
 # carrega os pacotes
 library("fontawesome", character.only = TRUE)
 
@@ -113,10 +119,10 @@ library("fontawesome", character.only = TRUE)
 for (i in 1:dim(lista)[1]) {
   dir.name <- formatC(lista$id[i], width = 3, flag = "0")
   
-  cat('<a href=\"',
+  cat('<a style=\"margin:auto;\" href=\"',
       file.path("ids", dir.name, paste0(dir.name, ".png")),
       '\" target="_blank" rel=\"noopener\" onclick=\"return confirm(\'Are you sure?\')\">',
-      fa("user", margin_right = "0.2em"),
+      fa("user", height = "2em", width = "2em", margin_right = "0.2em"),
       'Participant ID ', dir.name,
       '</a>',
       sep = "")
@@ -125,3 +131,4 @@ for (i in 1:dim(lista)[1]) {
   cat('\n\n')
 }
 ```
+
