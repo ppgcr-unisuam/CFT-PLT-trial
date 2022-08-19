@@ -6,10 +6,7 @@ author:
   - name: "Arthur de Sá Ferreira"
   - email: "arthur_sf@icloud.com"
 repository_url: "https://github.com/FerreiraAS/codes"
-creative_commons: "CC BY-NC-SA"
 output_dir: "docs"
-exclude: "/ids"
-link-citations: yes
 navbar:
   left:
     - text: ""
@@ -17,10 +14,10 @@ navbar:
       href: [index.html]
 
   right:
-    - text: "Jessica Fernandez"
+    - text: "Jessica Fernandez, MSc (Co-I)"
       icon: "fa-envelope"
       href: [mailto:jessicafmg@gmail.com]
-    - text: "Ney Meziat Filho"
+    - text: "Ney Meziat Filho, PhD (PI)"
       icon: "fa-envelope"
       href: [mailto:ney.filho@souunisuam.com.br]
     - text: ""
@@ -29,16 +26,7 @@ navbar:
 
 output:
   html_document:
-    theme: cerulean
-    highlight: textmate
+    theme: "cerulean"
+    highlight: "textmate"
     toc: false
-    edit: null
-    sharing:
-      facebook: yes
-      twitter: yes
-      google: yes
-      all:
-        - facebook
-        - twitter
-        - google
 ---

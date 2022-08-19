@@ -1,8 +1,5 @@
 ---
 title: "Randomization and (virtual) Allocation Concealment"
-link-citations: yes
-output:
-  html_document
 ---
 
 ```{css, echo = FALSE}
@@ -16,6 +13,7 @@ div.main-container {
   margin-right: auto;
 }
 ```
+
 
 
 ## {.tabset}
@@ -41,8 +39,8 @@ div.main-container {
 ```{r rand-alloc-hide, echo = FALSE, include = FALSE}
 # carrega os pacotes
 library("blockrand", character.only = TRUE)
-library("stats", character.only = TRUE)
 library("png", character.only = TRUE)
+library("stats", character.only = TRUE)
 library("writexl", character.only = TRUE)
 
 # para resultados reprodutíveis
@@ -84,18 +82,35 @@ for (i in 1:dim(lista)[1]) {
     xlim = c(-1, 1),
     ylim = c(-1, 1),
     ylab = NA,
-    xlab = NA
+    xlab = NA,
+    bty = "n",
+    axes = FALSE,
+    frame.plot = TRUE
   )
   text(x = 0,
        y = 0,
-       labels = lista$treatment[i])
+       labels = lista$treatment[i],
+       cex = 10
+       )
+  title(paste0('Participant ID ', dir.name), cex = 2)
   dev.off()
 }
 ```
 
-```{r rand-alloc-show, echo = FALSE, include = TRUE}
-# exibe a lista
+```{r rand-alloc-show, comment = NA, include = TRUE, echo = FALSE, warning = FALSE, message = FALSE, fig.align = 'center', out.width = "100%", results = "asis"}
+
+# exibe a lista em formato de hyperlink
 for (i in 1:dim(lista)[1]) {
-  cat()
+  dir.name <- formatC(lista$id[i], width = 3, flag = "0")
+  
+  cat('<a href=\"',
+      file.path("ids", dir.name, paste0(dir.name, ".png")),
+      '\" target="_blank" rel=\"noopener\" onclick=\"return confirm(\'Are you sure?\')\">',
+      'Participant ID ', dir.name,
+      '</a>',
+      sep = "")
+  
+  cat('\n\n')
+  cat('\n\n')
 }
 ```
