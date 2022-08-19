@@ -1,0 +1,101 @@
+---
+title: "Randomization and (virtual) Allocation Concealment"
+link-citations: yes
+output:
+  html_document
+---
+
+```{css, echo = FALSE}
+body {
+  font-size: 2em;
+}
+
+div.main-container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+```
+
+
+## {.tabset}
+
+<br>
+
+### **ClinicalTrials.gov** {#clinical-trial-gov}
+
+<br>
+
+<iframe src="https://clinicaltrials.gov/ct2/show/NCT05480982?term=UNISUAM+OR+%22Centro+Universitário+Augusto+Motta%22&draw=2&rank=6" style="width:100%; height:600px; border:0;"></iframe>
+
+<br>
+
+*Fontes:* [**ClinicalTrials.gov**](https://clinicaltrials.gov)
+
+<br>
+
+### **Allocation concealment** {#allocation-concealment}
+
+<br>
+
+```{r rand-alloc-hide, echo = FALSE, include = FALSE}
+# carrega os pacotes
+library("blockrand", character.only = TRUE)
+library("stats", character.only = TRUE)
+library("png", character.only = TRUE)
+library("writexl", character.only = TRUE)
+
+# para resultados reprodutíveis
+seed <- 2020
+set.seed(seed)
+
+# tamanho da amostra
+N <- 200
+
+# numero de grupos
+grupos <- c("X", "Y")
+K = length(grupos)
+
+# blocos para randomização
+B <- 10 / K
+
+# gera a lista de randomização
+lista <- blockrand(
+  N,
+  num.levels = K,
+  # treatments
+  levels = grupos,
+  # treatment names
+  block.sizes = seq(1:B)
+)
+lista <- as.data.frame(lista)
+
+# salva o arquivo no disco
+write_xlsx(lista, "lista_alocacao.xlsx")
+
+# cria as pastas numeradas de acordo com o N
+for (i in 1:dim(lista)[1]) {
+  dir.name <- formatC(lista$id[i], width = 3, flag = "0")
+  dir.create(file.path("ids"))
+  dir.create(file.path("ids", dir.name))
+  png(file = file.path("ids", dir.name, paste0(dir.name, ".png")), bg = "transparent")
+  plot(
+    NULL,
+    xlim = c(-1, 1),
+    ylim = c(-1, 1),
+    ylab = NA,
+    xlab = NA
+  )
+  text(x = 0,
+       y = 0,
+       labels = lista$treatment[i])
+  dev.off()
+}
+```
+
+```{r rand-alloc-show, echo = FALSE, include = TRUE}
+# exibe a lista
+for (i in 1:dim(lista)[1]) {
+  cat()
+}
+```
