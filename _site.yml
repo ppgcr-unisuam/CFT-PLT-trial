@@ -3,9 +3,9 @@ title: "Randomization and (virtual) Allocation Concealment"
 date: '`r format(Sys.Date())`'
 name: "CFT-PLT-trial"
 author:
-  - name: "Arthur de Sá Ferreira"
-  - email: "arthur_sf@icloud.com"
-repository_url: "https://github.com/FerreiraAS/codes"
+  - name: "PPGCR-UNISUAM"
+  - email: "cienciasdareabilitacao@souunisuam.com.br"
+repository_url: "https://github.com/ppgcr-unisuam/CFT-PLT-trial"
 output_dir: "docs"
 navbar:
   left:
@@ -22,7 +22,7 @@ navbar:
       href: [mailto:ney.filho@souunisuam.com.br]
     - text: ""
       icon: "fa-github"
-      href: [https://github.com/FerreiraAS]
+      href: [https://github.com/ppgcr-unisuam]
 
 output:
   html_document:
