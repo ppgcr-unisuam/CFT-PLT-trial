@@ -1,5 +1,6 @@
 ---
 title: "RvAC | Randomization and virtual Allocation Concealment"
+name: "CFT-PLT-trial"
 ---
 
 ```{css, echo = FALSE}
@@ -14,11 +15,11 @@ div.main-container {
 }
 ```
 
-## {.tabset}
+## {.unlist .unnumbered .tabset}
 
 <br>
 
-### **ClinicalTrials.gov**
+### **Registered protocol**
 
 <br>
 
@@ -32,9 +33,7 @@ div.main-container {
 
 ### **Randomization**
 
-<br>
-
-#### *Generate list*
+#### *1. Generate list using block randomization*
 
 ```{r rand-alloc, echo = TRUE, include = TRUE, comment = NA, warning = FALSE, message = FALSE, fig.align = 'center', out.width = "100%"}
 # load packages
@@ -73,18 +72,47 @@ write_xlsx(lista, "lista_alocacao.xlsx")
 
 <br>
 
-#### *Generate folders*
+#### *2. Check for balanced allocation*
+
+```{r rand-alloc-check-1, echo = TRUE, include = TRUE, comment = NA, warning = FALSE, message = FALSE, fig.align = 'center', out.width = "100%", eval = FALSE}
+print("Participants per group, n:", quote = FALSE)
+print(table(lista[, 4]), quote = FALSE)
+print("Participants per group, %", quote = FALSE)
+print(table(lista[, 4])/sum(summary(lista[, 4]))*100, quote = FALSE)
+```
+
+```{r rand-alloc-check-2, echo = FALSE, include = TRUE, comment = NA, warning = FALSE, message = FALSE, fig.align = 'center', out.width = "100%", eval = TRUE}
+print("Participants per group, n:", quote = FALSE)
+print(table(lista[, 4]), quote = FALSE)
+print("Participants per group, %", quote = FALSE)
+print(table(lista[, 4])/sum(summary(lista[, 4]))*100, quote = FALSE)
+```
+
+<br>
+
+#### *3. Generate folders with envelopes*
 
 ```{r rand-alloc-hide, echo = TRUE, include = TRUE, comment = NA, warning = FALSE, message = FALSE, fig.align = 'center', out.width = "100%"}
-# cria as pastas numeradas de acordo com o N
+# load packages
+library("fontawesome", character.only = TRUE)
+library("grid", character.only = TRUE)
+
+# create dir with eachvirtual envelopes (folders) following the randomization list
 for (i in 1:dim(lista)[1]) {
+  # set participant ID
   dir.name <- formatC(lista$id[i], width = 3, flag = "0")
+  # create dir
   dir.create(file.path("ids"))
+  # create subdir
   dir.create(file.path("ids", dir.name))
-  par(mai = c(0.1, 0.1, 0.1, 0.1))
-  par(oma = c(1, 1, 1, 1))
-  par(pty = "s")
-  par(width = 4, height = 4, unit = "in")
+  # maxime plot 'envelope' area
+  par(mar = c(0, 0, 0, 0))
+  par(mai = c(0, 0, 0, 0))
+  par(oma = c(0, 0, 0, 0))
+  par(width = 3,
+      height = 4,
+      unit = "in")
+  # initialize image
   png(file = file.path("ids", dir.name, paste0(dir.name, ".png")), bg = "transparent")
   plot(
     NULL,
@@ -97,22 +125,30 @@ for (i in 1:dim(lista)[1]) {
     frame.plot = TRUE,
     asp = 1
   )
-  text(x = 0,
-       y = 0,
-       labels = lista$treatment[i],
-       cex = 10
-       )
+  text(
+    x = 0,
+    y = 0,
+    labels = lista$treatment[i],
+    cex = 10
+  )
   title(paste0('Participant ID ', dir.name), cex.main = 4)
+  grid.roundrect(
+    height = 0.99,
+    width = 0.99,
+    gp = gpar(fill = "#00000000", col = "grey", lwd = 2)
+  )
   dev.off()
 }
 ```
+
+<br>
 
 ### **Allocation concealment**
 
 <br>
 
 ```{r rand-alloc-show, , echo = FALSE, include = TRUE, comment = NA, warning = FALSE, message = FALSE, fig.align = 'center', out.width = "100%", results = "asis"}
-# carrega os pacotes
+# load packages
 library("fontawesome", character.only = TRUE)
 
 # exibe a lista em formato de hyperlink
@@ -121,8 +157,10 @@ for (i in 1:dim(lista)[1]) {
   
   cat('<a style=\"margin:auto;\" href=\"',
       file.path("ids", dir.name, paste0(dir.name, ".png")),
-      '\" target="_blank" rel=\"noopener\" onclick=\"return confirm(\'Are you sure?\')\">',
-      fa("user", height = "2em", width = "2em", margin_right = "0.2em"),
+      '\" target="_blank" rel=\"noopener\" onclick=\"return confirm(\'Are you sure you want to open an envelope for PARTICIPANT ID ',
+      dir.name,
+      '?\')\">',
+      fa("user", height = "1.5em", width = "1.5em", margin_right = "0.2em"),
       'Participant ID ', dir.name,
       '</a>',
       sep = "")
