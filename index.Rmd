@@ -1,5 +1,5 @@
 ---
-title: "Randomization and (virtual) Allocation Concealment"
+title: "RvAC | Randomization and virtual Allocation Concealment"
 ---
 
 ```{css, echo = FALSE}
@@ -14,13 +14,11 @@ div.main-container {
 }
 ```
 
-
-
 ## {.tabset}
 
 <br>
 
-### **ClinicalTrials.gov** {#clinical-trial-gov}
+### **ClinicalTrials.gov**
 
 <br>
 
@@ -32,32 +30,31 @@ div.main-container {
 
 <br>
 
-### **Allocation concealment** {#allocation-concealment}
+### **Randomization**
 
 <br>
 
-```{r rand-alloc-hide, echo = FALSE, include = FALSE}
-# carrega os pacotes
+```{r rand-alloc, echo = TRUE, include = TRUE, comment = NA}
+# load packages
 library("blockrand", character.only = TRUE)
 library("png", character.only = TRUE)
-library("stats", character.only = TRUE)
 library("writexl", character.only = TRUE)
 
-# para resultados reprodutíveis
+# reproducible results
 seed <- 2020
 set.seed(seed)
 
-# tamanho da amostra
+# sample size
 N <- 200
 
-# numero de grupos
+# groups
 grupos <- c("X", "Y")
 K = length(grupos)
 
-# blocos para randomização
+# blocks
 B <- 10 / K
 
-# gera a lista de randomização
+# randomize
 lista <- blockrand(
   N,
   num.levels = K,
@@ -68,14 +65,20 @@ lista <- blockrand(
 )
 lista <- as.data.frame(lista)
 
-# salva o arquivo no disco
+# save list im disk
 write_xlsx(lista, "lista_alocacao.xlsx")
+```
 
+```{r rand-alloc-hide, echo = FALSE, include = FALSE, comment = NA}
 # cria as pastas numeradas de acordo com o N
 for (i in 1:dim(lista)[1]) {
   dir.name <- formatC(lista$id[i], width = 3, flag = "0")
   dir.create(file.path("ids"))
   dir.create(file.path("ids", dir.name))
+  par(mai = c(0.1, 0.1, 0.1, 0.1))
+  par(oma = c(1, 1, 1, 1))
+  par(pty = "s")
+  par(width = 5, height = 5, unit = "in")
   png(file = file.path("ids", dir.name, paste0(dir.name, ".png")), bg = "transparent")
   plot(
     NULL,
@@ -85,19 +88,26 @@ for (i in 1:dim(lista)[1]) {
     xlab = NA,
     bty = "n",
     axes = FALSE,
-    frame.plot = TRUE
+    frame.plot = TRUE,
+    asp = 1
   )
   text(x = 0,
        y = 0,
        labels = lista$treatment[i],
        cex = 10
        )
-  title(paste0('Participant ID ', dir.name), cex = 2)
+  title(paste0('Participant ID ', dir.name), cex.main = 4)
   dev.off()
 }
 ```
 
+### **Allocation concealment**
+
+<br>
+
 ```{r rand-alloc-show, comment = NA, include = TRUE, echo = FALSE, warning = FALSE, message = FALSE, fig.align = 'center', out.width = "100%", results = "asis"}
+# carrega os pacotes
+library("fontawesome", character.only = TRUE)
 
 # exibe a lista em formato de hyperlink
 for (i in 1:dim(lista)[1]) {
@@ -106,6 +116,7 @@ for (i in 1:dim(lista)[1]) {
   cat('<a href=\"',
       file.path("ids", dir.name, paste0(dir.name, ".png")),
       '\" target="_blank" rel=\"noopener\" onclick=\"return confirm(\'Are you sure?\')\">',
+      fa("user", margin_right = "0.2em"),
       'Participant ID ', dir.name,
       '</a>',
       sep = "")
