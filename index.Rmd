@@ -48,7 +48,7 @@ set.seed(seed)
 N <- 200
 
 # groups
-grupos <- c("X", "Y")
+grupos <- c("CFT", "PLT")
 K = length(grupos)
 
 # blocks
