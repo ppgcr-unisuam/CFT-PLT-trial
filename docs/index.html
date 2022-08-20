@@ -296,8 +296,8 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">RvAC | Randomization and virtual Allocation
-Concealment</h1>
+<h1 class="title toc-ignore"><strong>RvAC</strong> | Randomization and
+virtual Allocation Concealment</h1>
 
 </div>
 
@@ -313,6 +313,15 @@ div.main-container {
   margin-right: auto;
 }
 </style>
+<!-- disable href after 1 click on html -->
+<script> 
+   function clickAndDisable(link) {
+     // disable subsequent clicks
+     link.onclick = function(event) {
+        event.preventDefault();
+     }
+   }   
+</script>
 <div id="section" class="section level2 unlist unnumbered tabset">
 <h2 class="unlist unnumbered tabset"></h2>
 <p><br></p>

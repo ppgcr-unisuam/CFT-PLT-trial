@@ -1,6 +1,6 @@
 ---
-title: "RvAC | Randomization and virtual Allocation Concealment"
-name: "CFT-PLT-trial"
+title: "**RvAC** | Randomization and virtual Allocation Concealment"
+name: CFT-PLT-trial
 ---
 
 ```{css, echo = FALSE}
@@ -14,6 +14,17 @@ div.main-container {
   margin-right: auto;
 }
 ```
+
+<!-- disable href after 1 click on html -->
+
+<script> 
+   function clickAndDisable(link) {
+     // disable subsequent clicks
+     link.onclick = function(event) {
+        event.preventDefault();
+     }
+   }   
+</script>
 
 ## {.unlist .unnumbered .tabset}
 
@@ -169,4 +180,3 @@ for (i in 1:dim(lista)[1]) {
   cat('\n\n')
 }
 ```
-

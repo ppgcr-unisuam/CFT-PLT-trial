@@ -1,12 +1,12 @@
 ---
-title: "RvAC | Randomization and virtual Allocation Concealment"
+title: "**RvAC** | Randomization and virtual Allocation Concealment"
 date: '`r format(Sys.Date())`'
-name: "CFT-PLT-trial"
+name: CFT-PLT-trial
 author:
-  - name: "PPGCR-UNISUAM"
-  - email: "cienciasdareabilitacao@souunisuam.com.br"
-repository_url: "https://github.com/ppgcr-unisuam"
-output_dir: "docs"
+  - name: PPGCR-UNISUAM
+  - email: cienciasdareabilitacao@souunisuam.com.br
+repository_url: https://github.com/ppgcr-unisuam
+output_dir: docs
 navbar:
   right:
     - text: "Jessica Fernandez, MSc (Co-I)"
@@ -21,8 +21,8 @@ navbar:
 
 output:
   html_document:
-    theme: "cerulean"
-    highlight: "textmate"
+    theme: cerulean
+    highlight: textmate
     toc: false
-    code_folding: "hide"
+    code_folding: hide
 ---
