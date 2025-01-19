@@ -38,7 +38,7 @@ div.main-container {
 
 <br>
 
-*Fontes:* [**ClinicalTrials.gov**](https://clinicaltrials.gov)
+*Fontes:* [**ClinicalTrials.gov**](https://clinicaltrials.gov/ct2/show/NCT05480982)
 
 <br>
 
