@@ -333,12 +333,7 @@ href="https://clinicaltrials.gov/ct2/show/NCT05480982"><strong>ClinicalTrials.go
 <div id="generate-list-using-block-randomization"
 class="section level4">
 <h4><em>1. Generate list using block randomization</em></h4>
-<pre class="r"><code># load packages
-library(&quot;blockrand&quot;, character.only = TRUE)
-library(&quot;png&quot;, character.only = TRUE)
-library(&quot;writexl&quot;, character.only = TRUE)
-
-# reproducible results
+<pre class="r"><code># reproducible results
 seed &lt;- 2020
 set.seed(seed)
 
@@ -353,7 +348,7 @@ K = length(grupos)
 B &lt;- 10 / K
 
 # randomize
-lista &lt;- blockrand(
+lista &lt;- blockrand::blockrand(
   N,
   num.levels = K,
   # treatments
@@ -364,7 +359,7 @@ lista &lt;- blockrand(
 lista &lt;- as.data.frame(lista)
 
 # save list im disk
-write_xlsx(lista, &quot;lista_alocacao.xlsx&quot;)</code></pre>
+writexl::write_xlsx(lista, &quot;lista_alocacao.xlsx&quot;)</code></pre>
 <p><br></p>
 </div>
 <div id="check-for-balanced-allocation" class="section level4">

@@ -47,11 +47,6 @@ div.main-container {
 #### *1. Generate list using block randomization*
 
 ```{r rand-alloc, echo = TRUE, include = TRUE, comment = NA, warning = FALSE, message = FALSE, fig.align = 'center', out.width = "100%"}
-# load packages
-library("blockrand", character.only = TRUE)
-library("png", character.only = TRUE)
-library("writexl", character.only = TRUE)
-
 # reproducible results
 seed <- 2020
 set.seed(seed)
@@ -67,7 +62,7 @@ K = length(grupos)
 B <- 10 / K
 
 # randomize
-lista <- blockrand(
+lista <- blockrand::blockrand(
   N,
   num.levels = K,
   # treatments
@@ -78,7 +73,7 @@ lista <- blockrand(
 lista <- as.data.frame(lista)
 
 # save list im disk
-write_xlsx(lista, "lista_alocacao.xlsx")
+writexl::write_xlsx(lista, "lista_alocacao.xlsx")
 ```
 
 <br>
